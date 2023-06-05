@@ -386,9 +386,9 @@ export default defineConfig({
 const blogTheme = getThemeConfig({
   comment: {
     repo: 'SoliviorX/vitepress-blog',
-    repoId: 'MDEwOlJlcG9zaXRvcnkyNDEyNDUyOTk',
+    repoId: 'R_kgDOJrfizw',
     category: 'Announcements',
-    categoryId: 'DIC_kwDODmEcc84COVc6'
+    categoryId: 'DIC_kwDOJrfiz84CW_H1'
   }
 })
 ```

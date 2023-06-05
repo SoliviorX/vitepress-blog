@@ -1,41 +1,41 @@
 {
-  "hash": "8278dad1",
-  "browserHash": "b0cde2e1",
+  "hash": "1c023a29",
+  "browserHash": "36fae5fa",
   "optimized": {
     "vue": {
       "src": "../../../../../../node_modules/.pnpm/vue@3.3.4/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "08392d37",
+      "fileHash": "faace982",
       "needsInterop": false
     },
     "element-plus": {
       "src": "../../../../../../node_modules/.pnpm/element-plus@2.3.6_vue@3.3.4/node_modules/element-plus/es/index.mjs",
       "file": "element-plus.js",
-      "fileHash": "31675aa4",
+      "fileHash": "c967a458",
       "needsInterop": false
     },
     "@vueuse/core": {
       "src": "../../../../../../node_modules/.pnpm/@vueuse+core@10.1.2_vue@3.3.4/node_modules/@vueuse/core/index.mjs",
       "file": "@vueuse_core.js",
-      "fileHash": "cb093525",
+      "fileHash": "b6354264",
       "needsInterop": false
     },
     "@element-plus/icons-vue": {
       "src": "../../../../../../node_modules/.pnpm/@element-plus+icons-vue@2.1.0_vue@3.3.4/node_modules/@element-plus/icons-vue/dist/index.js",
       "file": "@element-plus_icons-vue.js",
-      "fileHash": "e29a5acc",
+      "fileHash": "9170b9fd",
       "needsInterop": false
     },
     "vue-command-palette": {
       "src": "../../../../../../node_modules/.pnpm/vue-command-palette@0.1.4/node_modules/vue-command-palette/lib/vue-command-palette.js",
       "file": "vue-command-palette.js",
-      "fileHash": "e46558b7",
+      "fileHash": "47f39d31",
       "needsInterop": false
     },
     "@vue/shared": {
       "src": "../../../../../../node_modules/.pnpm/@vue+shared@3.3.4/node_modules/@vue/shared/dist/shared.esm-bundler.js",
       "file": "@vue_shared.js",
-      "fileHash": "9381a048",
+      "fileHash": "c35f3bea",
       "needsInterop": false
     }
   },

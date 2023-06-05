@@ -1,6 +1,6 @@
 {
   "name": "@soliviorx/theme",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "简约风的 Vitepress 博客主题",
   "main": "src/index.ts",
   "exports": {

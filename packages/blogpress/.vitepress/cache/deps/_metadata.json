@@ -1,19 +1,56 @@
 {
-  "hash": "8ab72eef",
-  "browserHash": "80ee2734",
+  "hash": "1098f9da",
+  "browserHash": "4ee6c0f6",
   "optimized": {
     "vue": {
       "src": "../../../../../node_modules/.pnpm/vue@3.3.4/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "7fbcda6b",
+      "fileHash": "47b2a01a",
       "needsInterop": false
     },
-    "@theme/index": {
-      "src": "../../../../../node_modules/.pnpm/vitepress@1.0.0-beta.1_@algolia+client-search@4.17.1_@types+node@20.2.5_sass@1.62.1/node_modules/vitepress/dist/client/theme-default/index.js",
-      "file": "@theme_index.js",
-      "fileHash": "95e3f676",
+    "element-plus": {
+      "src": "../../../../../node_modules/.pnpm/element-plus@2.3.6_vue@3.3.4/node_modules/element-plus/es/index.mjs",
+      "file": "element-plus.js",
+      "fileHash": "da121819",
+      "needsInterop": false
+    },
+    "@vueuse/core": {
+      "src": "../../../../../node_modules/.pnpm/@vueuse+core@10.1.2_vue@3.3.4/node_modules/@vueuse/core/index.mjs",
+      "file": "@vueuse_core.js",
+      "fileHash": "7383e620",
+      "needsInterop": false
+    },
+    "@element-plus/icons-vue": {
+      "src": "../../../../../node_modules/.pnpm/@element-plus+icons-vue@2.1.0_vue@3.3.4/node_modules/@element-plus/icons-vue/dist/index.js",
+      "file": "@element-plus_icons-vue.js",
+      "fileHash": "d6d3d530",
+      "needsInterop": false
+    },
+    "vue-command-palette": {
+      "src": "../../../../../node_modules/.pnpm/vue-command-palette@0.1.4/node_modules/vue-command-palette/lib/vue-command-palette.js",
+      "file": "vue-command-palette.js",
+      "fileHash": "f703d5c0",
+      "needsInterop": false
+    },
+    "@vue/shared": {
+      "src": "../../../../../node_modules/.pnpm/@vue+shared@3.3.4/node_modules/@vue/shared/dist/shared.esm-bundler.js",
+      "file": "@vue_shared.js",
+      "fileHash": "81a97668",
       "needsInterop": false
     }
   },
-  "chunks": {}
+  "chunks": {
+    "chunk-PUASHDU4": {
+      "file": "chunk-PUASHDU4.js"
+    },
+    "chunk-PVCCDKSU": {
+      "file": "chunk-PVCCDKSU.js"
+    },
+    "chunk-HL2JUGLC": {
+      "file": "chunk-HL2JUGLC.js"
+    },
+    "chunk-LURA2FBG": {
+      "file": "chunk-LURA2FBG.js"
+    }
+  }
 }
