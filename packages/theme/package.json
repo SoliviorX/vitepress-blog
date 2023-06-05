@@ -1,17 +1,46 @@
 {
   "name": "@soliviorx/theme",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "简约风的 Vitepress 博客主题",
   "main": "src/index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs:dev": "vitepress dev demo",
-    "docs:build": "vitepress build demo",
-    "docs:preview": "vitepress preview demo"
+  "exports": {
+    "./node": {
+      "types": "./node.d.ts",
+      "default": "./node.js"
+    },
+    "./package.json": "./package.json",
+    ".": "./src/index.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "files": [
+    "src",
+    "types",
+    "node.js",
+    "node.d.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoliviorX/vitepress-blog.git"
+  },
+  "keywords": [
+    "vitepress",
+    "theme",
+    "soliviorx"
+  ],
+  "homepage": "https://www.zjutshideshan.cn",
+  "bugs": {
+    "url": "https://github.com/SoliviorX/vitepress-blog/issues"
+  },
+  "scripts": {
+    "dev": "npm run build:node && npm run dev:docs",
+    "dev:docs": "vitepress dev demo",
+    "dev:node": "npx tsup src/node.ts --dts --out-dir=./ --watch",
+    "build": "npm run build:node && npm run build:docs",
+    "build:docs": "vitepress build demo",
+    "build:node": "npx tsup src/node.ts --dts --out-dir=./",
+    "serve": "vitepress serve demo"
+  },
+  "author": "SoliviorX",
+  "license": "MIT",
   "devDependencies": {
     "@element-plus/icons-vue": "^2.1.0",
     "element-plus": "^2.3.6",

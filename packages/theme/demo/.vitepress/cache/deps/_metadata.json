@@ -1,0 +1,56 @@
+{
+  "hash": "8278dad1",
+  "browserHash": "b0cde2e1",
+  "optimized": {
+    "vue": {
+      "src": "../../../../../../node_modules/.pnpm/vue@3.3.4/node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "08392d37",
+      "needsInterop": false
+    },
+    "element-plus": {
+      "src": "../../../../../../node_modules/.pnpm/element-plus@2.3.6_vue@3.3.4/node_modules/element-plus/es/index.mjs",
+      "file": "element-plus.js",
+      "fileHash": "31675aa4",
+      "needsInterop": false
+    },
+    "@vueuse/core": {
+      "src": "../../../../../../node_modules/.pnpm/@vueuse+core@10.1.2_vue@3.3.4/node_modules/@vueuse/core/index.mjs",
+      "file": "@vueuse_core.js",
+      "fileHash": "cb093525",
+      "needsInterop": false
+    },
+    "@element-plus/icons-vue": {
+      "src": "../../../../../../node_modules/.pnpm/@element-plus+icons-vue@2.1.0_vue@3.3.4/node_modules/@element-plus/icons-vue/dist/index.js",
+      "file": "@element-plus_icons-vue.js",
+      "fileHash": "e29a5acc",
+      "needsInterop": false
+    },
+    "vue-command-palette": {
+      "src": "../../../../../../node_modules/.pnpm/vue-command-palette@0.1.4/node_modules/vue-command-palette/lib/vue-command-palette.js",
+      "file": "vue-command-palette.js",
+      "fileHash": "e46558b7",
+      "needsInterop": false
+    },
+    "@vue/shared": {
+      "src": "../../../../../../node_modules/.pnpm/@vue+shared@3.3.4/node_modules/@vue/shared/dist/shared.esm-bundler.js",
+      "file": "@vue_shared.js",
+      "fileHash": "9381a048",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-Y3XFYP2R": {
+      "file": "chunk-Y3XFYP2R.js"
+    },
+    "chunk-HUPKM6KN": {
+      "file": "chunk-HUPKM6KN.js"
+    },
+    "chunk-IONA4CDL": {
+      "file": "chunk-IONA4CDL.js"
+    },
+    "chunk-IHERUIEU": {
+      "file": "chunk-IHERUIEU.js"
+    }
+  }
+}

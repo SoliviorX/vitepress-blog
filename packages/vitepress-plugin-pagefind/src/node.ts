@@ -1,18 +1,14 @@
-/* eslint-disable prefer-rest-params */
 import glob from 'fast-glob'
 import matter from 'gray-matter'
 import fs from 'fs'
 import { execSync, spawn, spawnSync } from 'child_process'
 import path from 'path'
-import type { SiteConfig, UserConfig } from 'vitepress'
-import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
-import { formatDate } from './utils/index'
-import type { Theme } from './composables/config/index'
+import type { SiteConfig } from 'vitepress'
+import { formatDate } from './utils'
+import type { PagefindOption } from './type'
 
-const checkKeys = ['themeConfig']
-
-export function getThemeConfig(cfg?: Partial<Theme.BlogConfig>) {
-  const srcDir = cfg?.srcDir || process.argv.slice(2)?.[1] || '.'
+export function getPagesData(_srcDir?: string) {
+  const srcDir = _srcDir || process.argv.slice(2)?.[1] || '.'
   const files = glob.sync(`${srcDir}/**/*.md`, { ignore: ['node_modules'] })
 
   const data = files
@@ -45,7 +41,7 @@ export function getThemeConfig(cfg?: Partial<Theme.BlogConfig>) {
       const fileContent = fs.readFileSync(v, 'utf-8')
 
       // TODO: 支持JSON
-      const meta: Partial<Theme.PageMeta> = {
+      const meta = {
         ...matter(fileContent).data
       }
       if (!meta.title) {
@@ -64,16 +60,9 @@ export function getThemeConfig(cfg?: Partial<Theme.BlogConfig>) {
       }
 
       // 处理tags和categories,兼容历史文章
-      meta.categories =
-        typeof meta.categories === 'string'
-          ? [meta.categories]
-          : meta.categories
-      meta.tags = typeof meta.tags === 'string' ? [meta.tags] : meta.tags
-      meta.tag = [meta.tag || []]
-        .flat()
-        .concat([
-          ...new Set([...(meta.categories || []), ...(meta.tags || [])])
-        ])
+      meta.tag = (meta.tag || []).concat([
+        ...new Set([...(meta.categories || []), ...(meta.tags || [])])
+      ])
 
       // 获取摘要信息
       const wordCount = 100
@@ -92,102 +81,7 @@ export function getThemeConfig(cfg?: Partial<Theme.BlogConfig>) {
     })
     .filter((v) => v.meta.layout !== 'home')
 
-  const extraConfig: any = {}
-
-  if (
-    cfg?.search === 'pagefind' ||
-    (cfg?.search instanceof Object && cfg.search.mode === 'pagefind')
-  ) {
-    checkKeys.push('vite')
-
-    let resolveConfig: any
-    extraConfig.vite = {
-      plugins: [
-        {
-          name: '@sugarar/theme-plugin-pagefind',
-          enforce: 'pre',
-          configResolved(config: any) {
-            if (resolveConfig) {
-              return
-            }
-            resolveConfig = config
-
-            const vitepressConfig: SiteConfig = config.vitepress
-            if (!vitepressConfig) {
-              return
-            }
-
-            // 添加 自定义 vitepress 的钩子
-            const selfBuildEnd = vitepressConfig.buildEnd
-            vitepressConfig.buildEnd = (siteConfig: any) => {
-              // 调用自己的
-              selfBuildEnd?.(siteConfig)
-              // 调用pagefind
-              const ignore: string[] = [
-                // 侧边栏内容
-                'div.aside',
-                // 标题锚点
-                'a.header-anchor'
-              ]
-              const { log } = console
-              log()
-              log('=== pagefind: https://pagefind.app/ ===')
-              let command = `npx pagefind --source ${path.join(
-                process.argv.slice(2)?.[1] || '.',
-                '.vitepress/dist'
-              )}`
-
-              if (ignore.length) {
-                command += ` --exclude-selectors "${ignore.join(', ')}"`
-              }
-
-              log(command)
-              log()
-              execSync(command, {
-                stdio: 'inherit'
-              })
-            }
-          },
-          // 添加检索的内容标识
-          transform(code: string, id: string) {
-            if (id.endsWith('theme-default/Layout.vue')) {
-              return code.replace(
-                '<VPContent>',
-                '<VPContent data-pagefind-body>'
-              )
-            }
-            return code
-          }
-        }
-      ]
-    }
-  }
-  if (cfg?.tabs) {
-    extraConfig.markdown = {
-      config(md: any) {
-        tabsMarkdownPlugin(md)
-      }
-    }
-  }
-  return {
-    themeConfig: {
-      blog: {
-        pagesData: data as Theme.PageData[],
-        ...cfg
-      },
-      ...(cfg?.blog !== false
-        ? {
-            sidebar: [
-              {
-                text: '',
-                items: []
-              }
-            ]
-          }
-        : undefined)
-    },
-    ...extraConfig
-  }
+  return data
 }
 
 export function getDefaultTitle(content: string) {
@@ -198,7 +92,7 @@ export function getDefaultTitle(content: string) {
         return str.startsWith('# ')
       })
       ?.slice(2)
-      .replace(/^\s+|\s+$/g, '') || ''
+      .replace(/[\s]/g, '') || ''
   return title
 }
 
@@ -234,6 +128,10 @@ export function getFileBirthTime(url: string) {
 
   try {
     // 参考 vitepress 中的 getGitTimestamp 实现
+    // const infoStr = execSync(`git log -1 --pretty="%ci" ${url}`)
+    //   .toString('utf-8')
+    //   .trim()
+
     const infoStr = spawnSync('git', ['log', '-1', '--pretty="%ci"', url])
       .stdout?.toString()
       .replace(/["']/g, '')
@@ -283,25 +181,84 @@ function getTextSummary(text: string, count = 100) {
   )
 }
 
-export function defineConfig(config: UserConfig<Theme.Config>) {
-  // 兼容低版本主题配置
-  // @ts-ignore
-  if (config.themeConfig?.themeConfig) {
-    config.extends = checkKeys.reduce((pre, key) => {
-      // @ts-ignore
-      pre[key] = config.themeConfig[key]
-      // @ts-ignore
-      delete config.themeConfig[key]
-      return pre
-    }, {})
+// 需要忽略检索的内容
+const ignoreSelectors: string[] = [
+  // 侧边栏内容
+  'div.aside',
+  // 标题锚点
+  'a.header-anchor'
+]
 
-    // 打印warn信息
-    setTimeout(() => {
-      console.warn('==↓ 主题配置方式过期，请尽快参照文档更新 ↓==')
-      console.warn('https://www.zjutshideshan.cn/config/global.html')
-    }, 1200)
-  }
-  return config
+export const EXTERNAL_URL_RE = /^[a-z]+:/i
+
+/**
+ * Join two paths by resolving the slash collision.
+ */
+export function joinPath(base: string, path: string): string {
+  return `${base}${path}`.replace(/\/+/g, '/')
 }
 
-export { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
+export function withBase(base: string, path: string) {
+  return EXTERNAL_URL_RE.test(path) || path.startsWith('.')
+    ? path
+    : joinPath(base, path)
+}
+
+export const pluginSiteConfig: Partial<SiteConfig> = {
+  /**
+   * TODO：支持更多pagefind配置项
+   * vitepress buildEnd钩子调用
+   */
+  buildEnd(ctx) {
+    const pagefindOps: PagefindOption = (ctx as any).PagefindOption
+    const ignore = [
+      ...new Set(ignoreSelectors.concat(pagefindOps?.excludeSelector || []))
+    ]
+    const { log } = console
+    log()
+    log('=== pagefind: https://pagefind.app/ ===')
+    let command = `npx pagefind --source ${path.join(
+      process.argv.slice(2)?.[1] || '.',
+      '.vitepress/dist'
+    )}`
+
+    if (ignore.length) {
+      command += ` --exclude-selectors "${ignore.join(', ')}"`
+    }
+
+    if (typeof pagefindOps.forceLanguage === 'string') {
+      command += ` --force-language ${pagefindOps.forceLanguage}`
+    }
+
+    log(command)
+    log()
+    execSync(command, {
+      stdio: 'inherit'
+    })
+  },
+  transformHead(ctx) {
+    return [
+      [
+        'script',
+        {},
+        `import('${withBase(
+          ctx.siteData.base || '',
+          '/_pagefind/pagefind.js'
+        )}')
+    .then((module) => {
+      window.__pagefind__ = module
+    })
+    .catch(() => {
+      console.log('not load /_pagefind/pagefind.js')
+    })`
+      ]
+    ]
+  }
+}
+
+export function chineseSearchOptimize(input: string) {
+  return input
+    .replace(/[\u4e00-\u9fa5]/g, ' $& ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}

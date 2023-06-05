@@ -68,7 +68,7 @@ pnpm serve
 如果主题更新了，升级主题，原项目只需执行如下指令即可
 
 ```sh
-pnpm up @sugarat/theme
+pnpm up @soliviorx/theme
 ```
 
 ## 更多

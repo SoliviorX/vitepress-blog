@@ -1,10 +1,22 @@
 {
   "name": "soliviorx-blog",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "个人博客&知识&文档站集",
+  "privite": true,
   "scripts": {
-    "dev": "pnpm --filter 'blogpress' dev"
+    "dev": "pnpm --filter 'blogpress' dev",
+    "dev:theme": "pnpm --filter '@soliviorx/theme' dev",
+    "build": "pnpm --filter 'blogpress' build",
+    "serve": "pnpm --filter 'blogpress' serve",
+    "lint": "eslint --ext .js,.ts,.vue --fix packages/**",
+    "build:theme": "pnpm --filter '@soliviorx/theme' build",
+    "build:theme-only": "pnpm --filter '@soliviorx/theme' build:node",
+    "release": "pnpm build:theme && pnpm release:only",
+    "release:only": "changeset publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com:SoliviorX/vitepress-blog.git"
   },
   "keywords": [],
   "author": "",
