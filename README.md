@@ -1,13 +1,13 @@
 <h1 align="center"> SoliviorX </h1>
 <p align="center">你的指尖,拥有改变世界的力量</p>
-<p align="center">博客主题：<a href="" target="_blank">@sugarat/theme</a></p>
+<p align="center">博客主题：<a href="" target="_blank">@soliviorx/theme</a></p>
 
 ## 仓库介绍
 
 这是一个 monorepo 仓库，目前有如下四个部分
 
 - [blogpress](./packages/blogpress/)：博客内容本身
-- [@sugarat/theme](./packages/theme/)：博客分离出的通用 VitePress 主题
+- [@soliviorx/theme](./packages/theme/)：博客分离出的通用 VitePress 主题
 - [主题模板](./packages/template/)：用于快速创建和作者一样风格的博客
 - [vitepress-plugin-pagefind](./packages/vitepress-plugin-pagefind/)：基于 pagefind 实现的 VitePress 离线全文搜索支持插件
 

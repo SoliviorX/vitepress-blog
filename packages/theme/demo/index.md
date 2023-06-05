@@ -1,25 +1,9 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
 layout: home
-
-hero:
-  name: "@soliviorx/theme"
-  text: "vitepress 博客主题"
-  tagline: My great project tagline
-  actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
-
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+# 首页部分元素定制
+blog:
+  name: '@soliviorx/theme'
+  motto: 简约风的 Vitepress 博客主题
+  inspiring: 基于 Vitepress 定制的主题🎨
+  pageSize: 8
 ---
-
